@@ -42,5 +42,13 @@ public class CubeController : MonoBehaviour
         {
             _renderer.material.color = Color.red;
         }
-    } 
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Sphere"))
+        {
+            _renderer.material.color = Color.magenta;
+        }
+    }
 }
