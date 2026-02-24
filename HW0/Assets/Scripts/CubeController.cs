@@ -7,6 +7,8 @@ public class CubeController : MonoBehaviour
 {   
     private Rigidbody _rb;
     private Renderer _renderer;
+    [SerializeField] private float magnitude = 20f;
+    private bool _jumping = false;
 
     private void Awake()
     {
@@ -14,6 +16,24 @@ public class CubeController : MonoBehaviour
         _renderer = GetComponent<Renderer>();
     }
 
+
+    private void FixedUpdate()
+    {
+        if (_jumping)
+        {
+            Debug.Log("Aman");
+            _rb.AddForce(Vector3.up * magnitude);
+            _jumping = false;
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _jumping = true;
+        }
+    }
 
 
     void OnCollisionEnter(Collision collision)
