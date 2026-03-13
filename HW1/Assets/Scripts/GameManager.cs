@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
         player.StopMoving();
         panel.enablePanel("Win");
         panel.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void handleLose()
@@ -29,6 +32,8 @@ public class GameManager : MonoBehaviour
         player.StopMoving();
         panel.enablePanel("Lose");
         panel.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         
     }
 
@@ -42,8 +47,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void handleUINo()
+    public void HandleUINo()
     {
+        Debug.Log("No pressed");
+        panel.gameObject.SetActive(false);
         
+    }
+
+    public void HandleUIYes()
+    {
+        Debug.Log("Yes pressed");
+        panel.gameObject.SetActive(false);
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }
