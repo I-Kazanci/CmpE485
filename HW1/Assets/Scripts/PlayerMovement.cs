@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private bool _alive = true;
     private Vector3 _moveDirection;
+    public event Action onDie;
 
     void Start()
     {
@@ -49,10 +51,24 @@ public class PlayerMovement : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Arrow"))
             {
-                _animator.SetTrigger("Die");
-                _alive = false;
+                StartCoroutine(DieCourutine());
             }
         }
+    }
+
+    private IEnumerator DieCourutine()
+    {
+        _animator.SetTrigger("Die");
+        _alive = false;
+        yield return new  WaitForSeconds(1f);
+        onDie?.Invoke();
+    }
+
+    public void StopMoving()
+    {   
+        _animator.SetBool("isMoving", false);
+        this.enabled = false;
+        GetComponent<MouseLook>().enabled = false;
     }
     
     void OnControllerColliderHit(ControllerColliderHit hit)
