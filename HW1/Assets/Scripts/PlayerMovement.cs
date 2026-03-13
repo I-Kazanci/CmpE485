@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-
+    public float speed = 3f;
+    public float pushPower = 0.008f;
     private CharacterController _controller;
     private Animator _animator;
     private bool _alive = true;
+    private Vector3 _moveDirection;
 
     void Start()
     {
@@ -21,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
+            
 
+            
             Vector3 move = transform.right * h + transform.forward * v;
 
             bool isMoving = move.sqrMagnitude > 0.01f;
@@ -30,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
             if (isMoving)
             {
                 move.Normalize();
+                _moveDirection = move;
 
                 _animator.SetFloat("inputX", h);
                 _animator.SetFloat("inputY", v);
@@ -47,7 +51,25 @@ public class PlayerMovement : MonoBehaviour
             {
                 _animator.SetTrigger("Die");
                 _alive = false;
-            }  
+            }
         }
+    }
+    
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (!hit.gameObject.CompareTag("Key"))
+            return;
+
+        Rigidbody rb = hit.collider.attachedRigidbody;
+        if (rb == null || rb.isKinematic)
+            return;
+
+        if (_moveDirection.sqrMagnitude < 0.01f)
+            return;
+
+        Vector3 pushDir = _moveDirection;
+        pushDir.y = 0f;
+
+        rb.AddForce(pushDir * pushPower, ForceMode.Impulse);
     }
 }

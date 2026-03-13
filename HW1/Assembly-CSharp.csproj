@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/TrapController.cs" />
+    <Compile Include="Assets/Scripts/DoorController.cs" />
+    <Compile Include="Assets/Scripts/GameManager.cs" />
     <Compile Include="Assets/Scripts/ArrowController.cs" />
-    <Compile Include="Assets/Scripts/CameraController.cs" />
+    <Compile Include="Assets/Scripts/MouseLook.cs" />
     <Compile Include="Assets/Scripts/PlayerMovement.cs" />
     <Reference Include="UnityEngine">
       <HintPath>/home/kazanci/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
