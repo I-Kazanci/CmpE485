@@ -354,8 +354,10 @@
 -r:"Library/Bee/artifacts/2400b0aE.dag/com.unity.cinemachine.editor.ref.dll"
 -analyzer:"/home/kazanci/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"/home/kazanci/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
-"Assets/CameraController.cs"
+"Assets/Scripts/ArrowController.cs"
+"Assets/Scripts/CameraController.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/TrapController.cs"
 -langversion:9.0
 /deterministic
 /optimize+

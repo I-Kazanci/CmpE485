@@ -45,7 +45,9 @@
     <Analyzer Include="/home/kazanci/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/CameraController.cs" />
+    <Compile Include="Assets/Scripts/TrapController.cs" />
+    <Compile Include="Assets/Scripts/ArrowController.cs" />
+    <Compile Include="Assets/Scripts/CameraController.cs" />
     <Compile Include="Assets/Scripts/PlayerMovement.cs" />
     <Reference Include="UnityEngine">
       <HintPath>/home/kazanci/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

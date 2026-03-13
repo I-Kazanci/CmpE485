@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
     private Animator _animator;
+    private bool _alive = true;
 
     void Start()
     {
@@ -15,22 +17,37 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        
-        Vector3 move = transform.right * h + transform.forward * v;
-
-        bool isMoving = move.sqrMagnitude > 0.01f;
-        _animator.SetBool("isMoving", isMoving);
-
-        if (isMoving)
+        if (_alive)
         {
-            move.Normalize();
+            float h = Input.GetAxis("Horizontal");
+            float v = Input.GetAxis("Vertical");
 
-            _animator.SetFloat("inputX", h);
-            _animator.SetFloat("inputY", v);
+            Vector3 move = transform.right * h + transform.forward * v;
 
-            _controller.Move(move * speed * Time.deltaTime);
+            bool isMoving = move.sqrMagnitude > 0.01f;
+            _animator.SetBool("isMoving", isMoving);
+
+            if (isMoving)
+            {
+                move.Normalize();
+
+                _animator.SetFloat("inputX", h);
+                _animator.SetFloat("inputY", v);
+
+                _controller.Move(move * speed * Time.deltaTime);
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (_alive)
+        {
+            if (other.gameObject.CompareTag("Arrow"))
+            {
+                _animator.SetTrigger("Die");
+                _alive = false;
+            }  
         }
     }
 }
