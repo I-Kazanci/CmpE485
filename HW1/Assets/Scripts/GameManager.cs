@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private DoorController _door;
+    private GameObject _key;
+    private AudioSource _audioSource;
     [SerializeField] private GameObject gamePlane;
     [SerializeField] private GameObject mapPlane;
     [SerializeField ]private PlayerMovement player;
@@ -14,6 +16,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _door = FindObjectOfType<DoorController>();
+        _key = GameObject.FindGameObjectWithTag("Key");
+        _audioSource = GetComponent<AudioSource>();
         _door.onKeyDelivered += handleWin;
         player.onDie += handleLose;
     }
@@ -44,6 +48,23 @@ public class GameManager : MonoBehaviour
         {
             gamePlane.SetActive(!gamePlane.activeInHierarchy);
             mapPlane.SetActive(!mapPlane.activeInHierarchy);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            _key.transform.position = new Vector3(-0.8f, -0.0495f, 9.11f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (_audioSource.isPlaying)
+            {
+                _audioSource.Stop();
+            }
+            else
+            {
+                _audioSource.Play();
+            }
         }
     }
 
