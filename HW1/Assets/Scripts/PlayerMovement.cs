@@ -56,6 +56,38 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<EnemyController>(out EnemyController enemy ))
+        {
+            if (enemy.isAttacking)
+            {
+                if (_alive)
+                {
+                    Debug.Log("Attacked");
+                    StartCoroutine(DieCourutine());                    
+                }
+
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<EnemyController>(out EnemyController enemy ))
+        {
+            if (enemy.isAttacking)
+            {
+                if (_alive)
+                {
+                    Debug.Log("Attacked");
+                    StartCoroutine(DieCourutine());                    
+                }
+
+            }
+        }
+    }
+
     private IEnumerator DieCourutine()
     {
         _animator.SetTrigger("Die");
